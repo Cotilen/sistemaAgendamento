@@ -129,8 +129,8 @@ public class PlanoDeSaudePanel extends javax.swing.JPanel {
                 this,
                 "Você confirma a exclusão do Plano de saúde selecionado?",
                 "Plano de Saúde",
-                JOptionPane.QUESTION_MESSAGE,
-                JOptionPane.YES_NO_OPTION);
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
         int linha = tablePlanosDeSaude.getSelectedRow();
 
