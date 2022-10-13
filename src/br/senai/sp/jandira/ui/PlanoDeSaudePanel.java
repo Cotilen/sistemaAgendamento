@@ -5,6 +5,7 @@
 package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -33,16 +34,21 @@ public class PlanoDeSaudePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         scrollTablePlanosDeSaude = new javax.swing.JScrollPane();
         tablePlanosDeSaude = new javax.swing.JTable();
-        buttonExcluirPlanoDeSaude = new javax.swing.JButton();
-        buttonAlterarPlanoDeSaude = new javax.swing.JButton();
         buttonAdicionarPlanoDeSaude = new javax.swing.JButton();
+        buttonExcluirPlanoDeSaude = new javax.swing.JButton();
+        buttonEditarPlanoDeSaude = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(102, 102, 102));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        setMinimumSize(new java.awt.Dimension(945, 370));
+        setMinimumSize(new java.awt.Dimension(945, 420));
+        setPreferredSize(new java.awt.Dimension(970, 420));
+        setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel3.setFont(new java.awt.Font("Bauhaus 93", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 204, 0));
         jLabel3.setText("Planos de saúde");
+        add(jLabel3);
+        jLabel3.setBounds(30, 10, 180, 20);
 
         tablePlanosDeSaude.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,69 +61,114 @@ public class PlanoDeSaudePanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablePlanosDeSaude.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablePlanosDeSaudeMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                excluir(evt);
+            }
+        });
         scrollTablePlanosDeSaude.setViewportView(tablePlanosDeSaude);
 
-        buttonExcluirPlanoDeSaude.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/delete32-2.png"))); // NOI18N
-        buttonExcluirPlanoDeSaude.setToolTipText("Excluir plano de saúde selecionado");
+        add(scrollTablePlanosDeSaude);
+        scrollTablePlanosDeSaude.setBounds(30, 40, 905, 240);
 
-        buttonAlterarPlanoDeSaude.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/edit32.png"))); // NOI18N
-        buttonAlterarPlanoDeSaude.setToolTipText("Editar plano de saúde selecionado");
-
-        buttonAdicionarPlanoDeSaude.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/add32.png"))); // NOI18N
-        buttonAdicionarPlanoDeSaude.setToolTipText("Adicionar plano de saúde");
+        buttonAdicionarPlanoDeSaude.setBackground(new java.awt.Color(255, 204, 0));
+        buttonAdicionarPlanoDeSaude.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/adicionar.png"))); // NOI18N
+        buttonAdicionarPlanoDeSaude.setToolTipText("Editar Plano de Saúde");
+        buttonAdicionarPlanoDeSaude.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
         buttonAdicionarPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAdicionarPlanoDeSaudeActionPerformed(evt);
             }
         });
+        add(buttonAdicionarPlanoDeSaude);
+        buttonAdicionarPlanoDeSaude.setBounds(854, 302, 70, 60);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 941, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(scrollTablePlanosDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 905, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(680, 680, 680)
-                            .addComponent(buttonExcluirPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(buttonAlterarPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(buttonAdicionarPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 366, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)
-                    .addComponent(scrollTablePlanosDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(14, 14, 14)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonExcluirPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonAlterarPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonAdicionarPlanoDeSaude, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
+        buttonExcluirPlanoDeSaude.setBackground(new java.awt.Color(255, 204, 0));
+        buttonExcluirPlanoDeSaude.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/trash-bin.png"))); // NOI18N
+        buttonExcluirPlanoDeSaude.setToolTipText("Adicionar plano de saúde");
+        buttonExcluirPlanoDeSaude.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+        buttonExcluirPlanoDeSaude.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonExcluirPlanoDeSaudeMouseClicked(evt);
+            }
+        });
+        buttonExcluirPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirPlanoDeSaudeActionPerformed(evt);
+            }
+        });
+        add(buttonExcluirPlanoDeSaude);
+        buttonExcluirPlanoDeSaude.setBounds(692, 302, 70, 60);
+
+        buttonEditarPlanoDeSaude.setBackground(new java.awt.Color(255, 204, 0));
+        buttonEditarPlanoDeSaude.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/edit.png"))); // NOI18N
+        buttonEditarPlanoDeSaude.setToolTipText("Adicionar plano de saúde");
+        buttonEditarPlanoDeSaude.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+        buttonEditarPlanoDeSaude.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarPlanoDeSaudeActionPerformed(evt);
+            }
+        });
+        add(buttonEditarPlanoDeSaude);
+        buttonEditarPlanoDeSaude.setBounds(774, 302, 70, 60);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAdicionarPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarPlanoDeSaudeActionPerformed
-        PlanosdeSaudeDialog planosDeSaudeDialog = new PlanosdeSaudeDialog( null,true);
+        PlanosdeSaudeDialog planosDeSaudeDialog = new PlanosdeSaudeDialog(null, true);
         planosDeSaudeDialog.setVisible(true);
+
+        criarTabelaPlanosDeSaude();
     }//GEN-LAST:event_buttonAdicionarPlanoDeSaudeActionPerformed
+
+    private void buttonExcluirPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirPlanoDeSaudeActionPerformed
+
+        int resposta = JOptionPane.showConfirmDialog(
+                this,
+                "Você confirma a exclusão do Plano de saúde selecionado?",
+                "Plano de Saúde",
+                JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.YES_NO_OPTION);
+
+        int linha = tablePlanosDeSaude.getSelectedRow();
+
+        if (linha != -1) {
+            // Excluir plano de saúde
+            String codigoStr = tablePlanosDeSaude.getValueAt(linha, 0).toString();
+            Integer codigo = Integer.valueOf(codigoStr);
+            PlanoDeSaudeDAO.excluir(codigo);
+            criarTabelaPlanosDeSaude();
+        } else {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Selecione o plano que deseja excluir!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonExcluirPlanoDeSaudeActionPerformed
+
+    private void buttonEditarPlanoDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarPlanoDeSaudeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonEditarPlanoDeSaudeActionPerformed
+
+    private void excluir(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluir
+
+    }//GEN-LAST:event_excluir
+
+    private void tablePlanosDeSaudeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePlanosDeSaudeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tablePlanosDeSaudeMouseClicked
+
+    private void buttonExcluirPlanoDeSaudeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonExcluirPlanoDeSaudeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonExcluirPlanoDeSaudeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAdicionarPlanoDeSaude;
-    private javax.swing.JButton buttonAlterarPlanoDeSaude;
+    private javax.swing.JButton buttonEditarPlanoDeSaude;
     private javax.swing.JButton buttonExcluirPlanoDeSaude;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane scrollTablePlanosDeSaude;

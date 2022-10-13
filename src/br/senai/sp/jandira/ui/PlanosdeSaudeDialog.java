@@ -4,6 +4,10 @@
  */
 package br.senai.sp.jandira.ui;
 
+import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
+import br.senai.sp.jandira.model.PlanoDeSaude;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 22282081
@@ -27,51 +31,165 @@ public class PlanosdeSaudeDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        adicionarPlanoPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        detalhesPlanoPanel = new javax.swing.JPanel();
+        labelCodigo = new javax.swing.JLabel();
+        textFieldCodigo = new javax.swing.JTextField();
+        labelOperadora = new javax.swing.JLabel();
+        labelTipoDePlano = new javax.swing.JLabel();
+        textFieldOperadora = new javax.swing.JTextField();
+        textFieldTipoDePlano = new javax.swing.JTextField();
+        buttonSalvar = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
+        setResizable(false);
         getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 780, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 16, Short.MAX_VALUE)
-        );
+        adicionarPlanoPanel.setBackground(new java.awt.Color(51, 51, 51));
+        adicionarPlanoPanel.setForeground(new java.awt.Color(51, 51, 51));
+        adicionarPlanoPanel.setLayout(null);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 780, 16);
+        jLabel1.setFont(new java.awt.Font("Bauhaus 93", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 204, 0));
+        jLabel1.setText("Planos de Saude -  NOVO");
+        adicionarPlanoPanel.add(jLabel1);
+        jLabel1.setBounds(100, 20, 250, 50);
 
-        jPanel2.setLayout(null);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/lista.png"))); // NOI18N
+        adicionarPlanoPanel.add(jLabel2);
+        jLabel2.setBounds(20, 10, 80, 70);
 
-        jLabel1.setText("Planos de Saude -  Adicionar");
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(140, 30, 280, 16);
+        getContentPane().add(adicionarPlanoPanel);
+        adicionarPlanoPanel.setBounds(0, 0, 640, 100);
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 780, 0);
+        detalhesPlanoPanel.setBackground(new java.awt.Color(102, 102, 102));
+        detalhesPlanoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes do plano de saude", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bauhaus 93", 2, 14), new java.awt.Color(255, 204, 102))); // NOI18N
+        detalhesPlanoPanel.setMinimumSize(new java.awt.Dimension(945, 370));
+        detalhesPlanoPanel.setLayout(null);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Detalhes do plano de saude"));
-        jPanel3.setMinimumSize(new java.awt.Dimension(945, 370));
-        jPanel3.setLayout(null);
+        labelCodigo.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+        labelCodigo.setForeground(new java.awt.Color(255, 204, 51));
+        labelCodigo.setText("Código:");
+        detalhesPlanoPanel.add(labelCodigo);
+        labelCodigo.setBounds(50, 50, 50, 15);
 
-        jLabel2.setText("Código");
-        jPanel3.add(jLabel2);
-        jLabel2.setBounds(57, 72, 130, 16);
+        textFieldCodigo.setEditable(false);
+        textFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldCodigoActionPerformed(evt);
+            }
+        });
+        detalhesPlanoPanel.add(textFieldCodigo);
+        textFieldCodigo.setBounds(50, 70, 64, 22);
 
-        getContentPane().add(jPanel3);
-        jPanel3.setBounds(0, 110, 640, 340);
+        labelOperadora.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+        labelOperadora.setForeground(new java.awt.Color(255, 204, 51));
+        labelOperadora.setText("Nome da operadora:");
+        detalhesPlanoPanel.add(labelOperadora);
+        labelOperadora.setBounds(50, 110, 120, 15);
 
-        setBounds(0, 0, 660, 461);
+        labelTipoDePlano.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 12)); // NOI18N
+        labelTipoDePlano.setForeground(new java.awt.Color(255, 204, 51));
+        labelTipoDePlano.setText("Tipo do Plano:");
+        detalhesPlanoPanel.add(labelTipoDePlano);
+        labelTipoDePlano.setBounds(50, 170, 90, 15);
+
+        textFieldOperadora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldOperadoraActionPerformed(evt);
+            }
+        });
+        detalhesPlanoPanel.add(textFieldOperadora);
+        textFieldOperadora.setBounds(50, 130, 240, 22);
+        detalhesPlanoPanel.add(textFieldTipoDePlano);
+        textFieldTipoDePlano.setBounds(50, 190, 320, 22);
+
+        buttonSalvar.setBackground(new java.awt.Color(255, 204, 0));
+        buttonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/salvar32.png"))); // NOI18N
+        buttonSalvar.setToolTipText("Adicionar");
+        buttonSalvar.setActionCommand("");
+        buttonSalvar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        buttonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSalvarActionPerformed(evt);
+            }
+        });
+        detalhesPlanoPanel.add(buttonSalvar);
+        buttonSalvar.setBounds(520, 263, 90, 60);
+
+        buttonCancelar.setBackground(new java.awt.Color(255, 204, 0));
+        buttonCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/cancelar.png"))); // NOI18N
+        buttonCancelar.setToolTipText("Cancelar");
+        buttonCancelar.setActionCommand("");
+        buttonCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+        detalhesPlanoPanel.add(buttonCancelar);
+        buttonCancelar.setBounds(410, 263, 90, 60);
+
+        getContentPane().add(detalhesPlanoPanel);
+        detalhesPlanoPanel.setBounds(0, 100, 640, 350);
+
+        setBounds(0, 0, 655, 489);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textFieldCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldCodigoActionPerformed
+
+    private void buttonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalvarActionPerformed
+        //Criar u  objeto Plano de Saude
+        PlanoDeSaude planoDeSaude = new PlanoDeSaude();
+        planoDeSaude.setOperadora(textFieldOperadora.getText());
+        planoDeSaude.setTipoDoPlano(textFieldTipoDePlano.getText());
+
+        if (validarCadastro()){
+
+        PlanoDeSaudeDAO.gravar(planoDeSaude);
+        
+        JOptionPane.showMessageDialog(
+                this, 
+                "Plano de Saúde gravado com sucesso", 
+                "Plano de Saúde", 
+                JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+        }
+    }//GEN-LAST:event_buttonSalvarActionPerformed
+
+
+    private void textFieldOperadoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldOperadoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldOperadoraActionPerformed
+
+    private boolean validarCadastro() {
+
+        if (textFieldOperadora.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor preencha o nome da Operadora!",
+                    "Plano de Saúde",
+                    JOptionPane.ERROR_MESSAGE);
+            
+            textFieldOperadora.requestFocus();
+            return false;
+        }
+
+        if (textFieldTipoDePlano.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this, 
+                    "Por favor preencha o tipo de plano!", 
+                    "Plano de Saúde", 
+                    JOptionPane.ERROR_MESSAGE);
+            textFieldTipoDePlano.requestFocus();
+            return false;
+        }
+        return true;
+
+    }
 
     /**
      * @param args the command line arguments
@@ -116,10 +234,17 @@ public class PlanosdeSaudeDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel adicionarPlanoPanel;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonSalvar;
+    private javax.swing.JPanel detalhesPlanoPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel labelCodigo;
+    private javax.swing.JLabel labelOperadora;
+    private javax.swing.JLabel labelTipoDePlano;
+    private javax.swing.JTextField textFieldCodigo;
+    private javax.swing.JTextField textFieldOperadora;
+    private javax.swing.JTextField textFieldTipoDePlano;
     // End of variables declaration//GEN-END:variables
 }
