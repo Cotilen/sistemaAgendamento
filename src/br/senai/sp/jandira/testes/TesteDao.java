@@ -62,6 +62,7 @@ public class TesteDao {
 
         }
 
+        // TEste excluir plano de saude
         PlanoDeSaudeDAO.excluir(101);
 
         System.out.println("---------------Após Exclusão--------------------");
@@ -69,8 +70,20 @@ public class TesteDao {
             System.out.println("Código: " + p.getCodigo());
             System.out.println("Operadora: " + p.getOperadora());
             System.out.println("-------------------------");
-            
+
         }
+
+        //Testar o metodo GetPlanoDeSaude do Dao
+        
+        PlanoDeSaude p = PlanoDeSaudeDAO.getPlanoDeSaude(102);
+
+        System.out.println("Código: " + p.getCodigo());
+        System.out.println("Operadora: " + p.getOperadora());
+        
+        int i = PlanoDeSaudeDAO.listarTodos().indexOf(plano5);
+        
+        System.out.println(i);
+
 //		PlanoDeSaudeDAO dao = new PlanoDeSaudeDAO();
 //		dao.gravar(plano1);
 //		dao.gravar(plano2);
@@ -90,6 +103,6 @@ public class TesteDao {
 //			System.out.println(plano.getOperadora());
 //		}
 //		
-        }
-
     }
+
+}

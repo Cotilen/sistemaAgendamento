@@ -7,10 +7,10 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private PlanoDeSaudePanel planosDeSaudePanel;
 
-    private final int POSIÇAO_X = 10;
+    private final int POSIÇAO_X = 0;
     private final int POSIÇAO_Y = 180;
-    private final int LARGURA = 945;
-    private final int ALTURA = 370;
+    private final int LARGURA = 970;
+    private final int ALTURA = 420;
 
     public HomeFrame() {
         initComponents();
