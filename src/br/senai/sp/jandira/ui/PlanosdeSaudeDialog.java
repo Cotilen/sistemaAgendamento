@@ -170,14 +170,19 @@ public class PlanosdeSaudeDialog extends javax.swing.JDialog {
         
         planoDeSaude.setOperadora(textFieldOperadora.getText());
         planoDeSaude.setTipoDoPlano(textFieldTipoDePlano.getText());
-        PlanoDeSaudeDAO.editar(planoDeSaude);
-        JOptionPane.showMessageDialog(
+       
+        
+        if(validarCadastro()){
+             PlanoDeSaudeDAO.editar(planoDeSaude);
+              JOptionPane.showMessageDialog(
                 null, 
                 "Plano de saúde atualizado com sucesso",
                 "Plano de Saúde",
                 JOptionPane.INFORMATION_MESSAGE);
         
         dispose();
+        }
+       
     }
 
     private void gravar() {

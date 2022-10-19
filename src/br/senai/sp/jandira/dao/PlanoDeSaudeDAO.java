@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
 public class PlanoDeSaudeDAO { // Simular nosso banco de dados
+    
 
     private PlanoDeSaude planoDeSaude;
     private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();

@@ -1,11 +1,13 @@
 package br.senai.sp.jandira.ui;
 
+import java.util.ArrayList;
+
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
-import javax.swing.JTable;
+import java.awt.Button;
 
 public class HomeFrame extends javax.swing.JFrame {
 
-    private PlanoDeSaudePanel planosDeSaudePanel;
+    private PlanoDeSaudePanel panelPlanosDeSaude;
 
     private final int POSIÇAO_X = 0;
     private final int POSIÇAO_Y = 180;
@@ -186,19 +188,19 @@ public class HomeFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHomeActionPerformed
+        defaultButtons();
         buttonHome.setBackground(new java.awt.Color(255, 133, 0));
-        buttonPlanosDeSaude.setBackground(new java.awt.Color(255, 204, 0));
+        panelsVisible();
         panelHome.setVisible(true);
-        planosDeSaudePanel.setVisible(false);
 
     }//GEN-LAST:event_buttonHomeActionPerformed
 
     private void buttonPlanosDeSaudeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlanosDeSaudeActionPerformed
 
+        defaultButtons();
         buttonPlanosDeSaude.setBackground(new java.awt.Color(255, 133, 0));
-        buttonHome.setBackground(new java.awt.Color(255, 204, 0));
-        panelHome.setVisible(false);
-        planosDeSaudePanel.setVisible(true);
+        panelsVisible();
+        panelPlanosDeSaude.setVisible(true);
 
 
     }//GEN-LAST:event_buttonPlanosDeSaudeActionPerformed
@@ -227,12 +229,28 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private void initPanels() {
 
-        planosDeSaudePanel = new PlanoDeSaudePanel();
+        panelPlanosDeSaude = new PlanoDeSaudePanel();
 
-        planosDeSaudePanel.setBounds(POSIÇAO_X, POSIÇAO_Y, LARGURA, ALTURA);
+        panelPlanosDeSaude.setBounds(POSIÇAO_X, POSIÇAO_Y, LARGURA, ALTURA);
 
-        getContentPane().add(planosDeSaudePanel);
-        planosDeSaudePanel.setVisible(false);
+        getContentPane().add(panelPlanosDeSaude);
+        panelPlanosDeSaude.setVisible(false);
 
     }
+
+    private void defaultButtons() {
+        buttonHome.setBackground(new java.awt.Color(255, 204, 0));
+        buttonPlanosDeSaude.setBackground(new java.awt.Color(255, 204, 0));
+        buttonAgenda.setBackground(new java.awt.Color(255, 204, 0));
+        buttonPacientes.setBackground(new java.awt.Color(255, 204, 0));
+        buttonEspecialidades.setBackground(new java.awt.Color(255, 204, 0));
+        buttonMedicos.setBackground(new java.awt.Color(255, 204, 0));
+    }
+    
+    private void panelsVisible(){
+        panelHome.setVisible(false);
+        panelPlanosDeSaude.setVisible(false);
+        
+    }
+
 }
