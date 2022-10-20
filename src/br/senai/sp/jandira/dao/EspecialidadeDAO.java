@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.dao;
 
 import br.senai.sp.jandira.model.Especialidade;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 public class EspecialidadeDAO {
@@ -69,5 +70,32 @@ public class EspecialidadeDAO {
         EspecialidadeDAO.gravar(especialidade2);
         EspecialidadeDAO.gravar(especialidade3);
         EspecialidadeDAO.gravar(especialidade4);
+    }
+    
+     public static DefaultTableModel getTableModel() {
+
+        // Matriz que receberá os planos de saúde
+        // que serão utilizados na Tabela (JTable)
+        Object[][] dados = new Object[especialidades.size()][3];
+
+        // For Each, para extrair cada objeto plano de saúde do
+        // arraylist planos e separar cada dado na matriz dados
+        int i = 0;
+        for (Especialidade e : especialidades) {
+            dados[i][0] = e.getCodigo();
+            dados[i][1] = e.getNome();
+            dados[i][2] = e.getDescricao();
+            i++;
+        }
+
+        // Definir um vetor com os nomes das colulas da tabela
+        String[] titulos = {"Código", "Nome da especialidade", "Descrição"};
+
+        // Criar o modelo que será utilizado pela JTable 
+        // para exibir os dados dos planos
+        DefaultTableModel tableModel = new DefaultTableModel(dados, titulos);
+
+        return tableModel;
+
     }
 }

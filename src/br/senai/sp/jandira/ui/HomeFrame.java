@@ -130,6 +130,11 @@ public class HomeFrame extends javax.swing.JFrame {
         buttonMedicos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/doctor.png"))); // NOI18N
         buttonMedicos.setToolTipText("Médicos");
         buttonMedicos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+        buttonMedicos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMedicosActionPerformed(evt);
+            }
+        });
         getContentPane().add(buttonMedicos);
         buttonMedicos.setBounds(290, 100, 80, 60);
 
@@ -231,6 +236,11 @@ public class HomeFrame extends javax.swing.JFrame {
         panelEspecialidade.setVisible(true);
     }//GEN-LAST:event_buttonEspecialidadesActionPerformed
 
+    private void buttonMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMedicosActionPerformed
+        defaultButtons();
+        buttonMedicos.setBackground(new java.awt.Color(255, 133, 0));
+    }//GEN-LAST:event_buttonMedicosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAgenda;
     private javax.swing.JButton buttonEspecialidades;
@@ -287,6 +297,7 @@ public class HomeFrame extends javax.swing.JFrame {
     private void panelsVisible(){
         panelHome.setVisible(false);
         panelPlanosDeSaude.setVisible(false);
+        panelEspecialidade.setVisible(false);
         
     }
 

@@ -83,6 +83,7 @@ public class PlanosdeSaudeDialog extends javax.swing.JDialog {
         labelCodigo.setBounds(50, 50, 50, 15);
 
         textFieldCodigo.setEditable(false);
+        textFieldCodigo.setBackground(new java.awt.Color(255, 204, 153));
         textFieldCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 textFieldCodigoActionPerformed(evt);
