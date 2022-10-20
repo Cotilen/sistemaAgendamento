@@ -3,7 +3,6 @@ package br.senai.sp.jandira.dao;
 import java.util.ArrayList;
 
 import br.senai.sp.jandira.model.PlanoDeSaude;
-import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
 public class PlanoDeSaudeDAO { // Simular nosso banco de dados

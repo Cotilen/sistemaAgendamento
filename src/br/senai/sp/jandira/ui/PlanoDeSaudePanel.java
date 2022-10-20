@@ -19,7 +19,7 @@ public class PlanoDeSaudePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel3 = new javax.swing.JLabel();
+        labelplanosDeSaude = new javax.swing.JLabel();
         scrollTablePlanosDeSaude = new javax.swing.JScrollPane();
         tablePlanosDeSaude = new javax.swing.JTable();
         buttonAdicionarPlanoDeSaude = new javax.swing.JButton();
@@ -30,11 +30,11 @@ public class PlanoDeSaudePanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1050, 420));
         setLayout(null);
 
-        jLabel3.setFont(new java.awt.Font("Bauhaus 93", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 204, 0));
-        jLabel3.setText("Planos de saúde");
-        add(jLabel3);
-        jLabel3.setBounds(30, 10, 180, 20);
+        labelplanosDeSaude.setFont(new java.awt.Font("Bauhaus 93", 1, 18)); // NOI18N
+        labelplanosDeSaude.setForeground(new java.awt.Color(255, 204, 0));
+        labelplanosDeSaude.setText("Planos de saúde");
+        add(labelplanosDeSaude);
+        labelplanosDeSaude.setBounds(30, 10, 180, 20);
 
         tablePlanosDeSaude.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,7 +210,7 @@ public class PlanoDeSaudePanel extends javax.swing.JPanel {
     private javax.swing.JButton buttonAdicionarPlanoDeSaude;
     private javax.swing.JButton buttonEditarPlanoDeSaude;
     private javax.swing.JButton buttonExcluirPlanoDeSaude;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel labelplanosDeSaude;
     private javax.swing.JScrollPane scrollTablePlanosDeSaude;
     private javax.swing.JTable tablePlanosDeSaude;
     // End of variables declaration//GEN-END:variables
