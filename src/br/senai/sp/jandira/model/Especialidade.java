@@ -9,6 +9,7 @@ public class Especialidade {
 
     // Métodos Construtotres
     public Especialidade() {
+        atualizarCodigo();
         quantidade++;
     }
 
