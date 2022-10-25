@@ -27,8 +27,8 @@ public class EspecialidadeDialog extends javax.swing.JDialog {
         labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/edit.png")));
         labelTitulo.setText("Especialidade - " + tipoOperacao);
         textFieldCodigo.setText(especialidade.getCodigo().toString());
-        textFieldOperadora.setText(especialidade.getNome());
-        textFieldTipoDePlano.setText(especialidade.getDescricao());
+        textNome.setText(especialidade.getNome());
+        textDescricao.setText(especialidade.getDescricao());
     }
 
     @SuppressWarnings("unchecked")
@@ -274,7 +274,7 @@ public class EspecialidadeDialog extends javax.swing.JDialog {
     }
 
     private void gravar() {
-        //Criar um objeto Plano de Saude
+        //Criar um objeto Especialidade
         Especialidade especialidade = new Especialidade();
         especialidade.setNome(textNome.getText());
         especialidade.setDescricao(textDescricao.getText());

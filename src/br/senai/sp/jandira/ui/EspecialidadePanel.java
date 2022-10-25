@@ -117,7 +117,7 @@ public class EspecialidadePanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(
                     this,
-                    "Selecione o plano que deseja excluir!",
+                    "Selecione a especialidade que deseja excluir!",
                     "Plano de Saúde",
                     JOptionPane.ERROR_MESSAGE);
         }
