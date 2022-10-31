@@ -1,11 +1,23 @@
 package br.senai.sp.jandira.dao;
 
 import br.senai.sp.jandira.model.Especialidade;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class EspecialidadeDAO {
 
+    private final static String CAMINHO = "C:\\Users\\22282081\\Documents\\NetBeansProjects\\projeto\\02-2022-ds1m-b\\src\\br\\senai\\sp\\jandira\\arquivos\\especialidade.txt";
+    private static Path PATH = Paths.get(CAMINHO);
     private Especialidade especialidade;
     private static ArrayList<Especialidade> especialidades = new ArrayList<>();
 
@@ -23,6 +35,23 @@ public class EspecialidadeDAO {
     }
 
     public static void gravar(Especialidade especialidade) {
+
+        try {
+            BufferedWriter bw = Files.newBufferedWriter(
+                    PATH,
+                    StandardOpenOption.APPEND,
+                    StandardOpenOption.WRITE);
+            bw.write(especialidade.getEspecialidadeSeparadoPorPontoEVirgula());
+            bw.newLine();
+            bw.close();
+
+        } catch (IOException ex) {
+          JOptionPane.showMessageDialog(
+                  null, 
+                  "Ocorreu um erro ao gravar", 
+                  "Erro ao gravar",
+                  JOptionPane.ERROR_MESSAGE);
+        }
         especialidades.add(especialidade);
     }
 
@@ -50,29 +79,38 @@ public class EspecialidadeDAO {
     public static void editar(Especialidade especialidade) {
         for (Especialidade e : especialidades) {
             if (e.getCodigo().equals(especialidade.getCodigo())) {
-                especialidades.set(especialidades.indexOf(e), especialidade);   
-            break;
+                especialidades.set(especialidades.indexOf(e), especialidade);
+                break;
             }
         }
 
     }
-    
-    public static void criarEspecialidadesTeste(){
-        Especialidade especialidade1 = new Especialidade("Odontologia", "Área da saúde humana que estuda e trata do sistema estomatognático - "
-                + "compreende o crânio, a face, pescoço e cavidade bucal, abrangendo ossos, musculatura mastigatória, articulações, dentes e tecidos");
-        Especialidade especialidade2 = new Especialidade("Pediatria");
-        Especialidade especialidade3 = new Especialidade("Cardiologia",
-                "Área da medicina que estuda e trata das doenças que acometem o coração");
-        Especialidade especialidade4 = new Especialidade("Ortopedia",
-                "Área da medicina que estuda e trata da saúde que atigem os aprelhos locomotores, como os ossos, ligamentos, músculos e articulações");
 
-        EspecialidadeDAO.gravar(especialidade1);
-        EspecialidadeDAO.gravar(especialidade2);
-        EspecialidadeDAO.gravar(especialidade3);
-        EspecialidadeDAO.gravar(especialidade4);
+    public static void criarEspecialidadesTeste() {
+
+   try {
+            BufferedReader br = Files.newBufferedReader(PATH);
+
+            String linha = "";
+
+            // ler uma linha do arquivo e armazenar na variavel linha
+            linha = br.readLine();
+
+            while (linha != null) {
+
+                String[] linhaVetor = linha.split(";");
+                Especialidade e = new Especialidade(Integer.valueOf(linhaVetor[0]), linhaVetor[1], linhaVetor[2]);
+                especialidades.add(e);
+                linha = br.readLine();
+            }
+            br.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "O arquivo não existe");
+
+        }
     }
-    
-     public static DefaultTableModel getTableModel() {
+
+    public static DefaultTableModel getTableModel() {
 
         // Matriz que receberá os planos de saúde
         // que serão utilizados na Tabela (JTable)

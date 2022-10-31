@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import java.awt.Button;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import javax.swing.ImageIcon;
 
 public class HomeFrame extends javax.swing.JFrame {
 
@@ -18,9 +22,13 @@ public class HomeFrame extends javax.swing.JFrame {
 
     public HomeFrame() {
         initComponents();
+
+        URL url = this.getClass().getResource("/br/senai/sp/jandira/imagens/barra.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
         PlanoDeSaudeDAO.criarPlanosDeSaudeTeste();
         EspecialidadeDAO.criarEspecialidadesTeste();
-        
+
         initPanels();
     }
 
@@ -272,16 +280,14 @@ public class HomeFrame extends javax.swing.JFrame {
 
         getContentPane().add(panelPlanosDeSaude);
         panelPlanosDeSaude.setVisible(false);
-        
+
         //Especialidade
-        
-       panelEspecialidade = new EspecialidadePanel();
-       
-       panelEspecialidade.setBounds(POSIÇAO_X, POSIÇAO_Y, LARGURA, ALTURA);
-       
-       getContentPane().add(panelEspecialidade);
-       panelEspecialidade.setVisible(false);
-        
+        panelEspecialidade = new EspecialidadePanel();
+
+        panelEspecialidade.setBounds(POSIÇAO_X, POSIÇAO_Y, LARGURA, ALTURA);
+
+        getContentPane().add(panelEspecialidade);
+        panelEspecialidade.setVisible(false);
 
     }
 
@@ -293,12 +299,12 @@ public class HomeFrame extends javax.swing.JFrame {
         buttonEspecialidades.setBackground(new java.awt.Color(255, 204, 0));
         buttonMedicos.setBackground(new java.awt.Color(255, 204, 0));
     }
-    
-    private void panelsVisible(){
+
+    private void panelsVisible() {
         panelHome.setVisible(false);
         panelPlanosDeSaude.setVisible(false);
         panelEspecialidade.setVisible(false);
-        
+
     }
 
 }

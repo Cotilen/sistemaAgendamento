@@ -1,13 +1,23 @@
 package br.senai.sp.jandira.dao;
 
+import br.senai.sp.jandira.model.Especialidade;
 import java.util.ArrayList;
 
 import br.senai.sp.jandira.model.PlanoDeSaude;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class PlanoDeSaudeDAO { // Simular nosso banco de dados
-    
 
+    private final static String CAMINHO = "C:\\Users\\22282081\\Documents\\NetBeansProjects\\projeto\\02-2022-ds1m-b\\src\\br\\senai\\sp\\jandira\\arquivos\\planoDeSaude.txt";
+    private static final Path PATH = Paths.get(CAMINHO);
     private PlanoDeSaude planoDeSaude;
     private static ArrayList<PlanoDeSaude> planos = new ArrayList<>();
 
@@ -20,6 +30,24 @@ public class PlanoDeSaudeDAO { // Simular nosso banco de dados
     }
 
     public static void gravar(PlanoDeSaude planoDeSaude) {
+        try {
+            BufferedWriter bw = Files.newBufferedWriter(
+                    PATH,
+                    StandardOpenOption.APPEND,
+                    StandardOpenOption.WRITE);
+
+            bw.write(planoDeSaude.getPlanoDeSaudeSeparadoPorPontoEVirgula());
+            bw.newLine();
+            bw.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Ocorreu um erro ao gravar.\n\nEntre em contato com o suporte",
+                    "Erro ao gravar",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
         planos.add(planoDeSaude);
     }
 
@@ -59,14 +87,27 @@ public class PlanoDeSaudeDAO { // Simular nosso banco de dados
     }
 
     public static void criarPlanosDeSaudeTeste() {
-        PlanoDeSaude p1 = new PlanoDeSaude("Unimed", "Bronze");
-        PlanoDeSaude p2 = new PlanoDeSaude("Unimed", "Ouro");
-        PlanoDeSaude p3 = new PlanoDeSaude("Amil", "Advanced");
-        PlanoDeSaude p4 = new PlanoDeSaude("Bradesco", "Exclusive");
-        planos.add(p1);
-        planos.add(p2);
-        planos.add(p3);
-        planos.add(p4);
+         try {
+            BufferedReader br = Files.newBufferedReader(PATH);
+
+            String linha = "";
+
+            // ler uma linha do arquivo e armazenar na variavel linha
+            linha = br.readLine();
+
+            while (linha != null) {
+
+                String[] linhaVetor = linha.split(";");
+                PlanoDeSaude p = new PlanoDeSaude(Integer.valueOf(linhaVetor[0]), linhaVetor[1], linhaVetor[2]);
+                planos.add(p);
+                linha = br.readLine();
+            }
+            br.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "O arquivo não existe");
+
+        }
+        
     }
 
     public static DefaultTableModel getTableModel() {
