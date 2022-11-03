@@ -26,8 +26,8 @@ public class HomeFrame extends javax.swing.JFrame {
         URL url = this.getClass().getResource("/br/senai/sp/jandira/imagens/barra.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
-        PlanoDeSaudeDAO.criarPlanosDeSaudeTeste();
-        EspecialidadeDAO.criarEspecialidadesTeste();
+        PlanoDeSaudeDAO.criarListaPlanoDeSaude();
+        EspecialidadeDAO.GetListaEspecialidades();
 
         initPanels();
     }
