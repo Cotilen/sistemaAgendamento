@@ -9,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -55,8 +57,8 @@ public class MedicoDAO {
         }
         medicos.add(medico);
     }
-    
-     public static Medico getEspecialidade(Integer codigo) {
+
+    public static Medico getMedico(Integer codigo) {
         for (Medico m : medicos) {
             if (m.getCodigo().equals(codigo)) {
                 return m;
@@ -67,7 +69,7 @@ public class MedicoDAO {
         return null;
     }
 
-      public static boolean excluir(Integer codigo) {
+    public static boolean excluir(Integer codigo) {
         for (Medico m : medicos) {
             if (m.getCodigo().equals(codigo)) {
                 medicos.remove(m);
@@ -79,8 +81,8 @@ public class MedicoDAO {
 
         return false;
     }
-      
-      public static void editar(Medico medico) {
+
+    public static void editar(Medico medico) {
         for (Medico m : medicos) {
             if (m.getCodigo().equals(medico.getCodigo())) {
                 medicos.set(medicos.indexOf(m), medico);
@@ -90,12 +92,12 @@ public class MedicoDAO {
         atualizarArquivo();
 
     }
-      
-      private static void atualizarArquivo() {
+
+    private static void atualizarArquivo() {
         //Reconstruir um arquivo atualizado
         //sem o plano que foi removido
         //Passo 1 - Criar uma representação dos arquivos que serão manipulados
-          File arquivoAtual = new File(ARQUIVO);
+        File arquivoAtual = new File(ARQUIVO);
         File arquivoTemp = new File(ARQUIVO_TEMP);
 
         try {
@@ -127,9 +129,8 @@ public class MedicoDAO {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro ao criar o arquivo!", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-      
-      
-      public static void GetListaMedicos() {
+
+    public static void GetListaMedicos() {
 
         try {
             BufferedReader br = Files.newBufferedReader(PATH);
@@ -142,7 +143,19 @@ public class MedicoDAO {
             while (linha != null && !linha.isEmpty()) {
 
                 String[] linhaVetor = linha.split(";");
-                Medico m = new Medico(Integer.valueOf(linhaVetor[0]), linhaVetor[1], linhaVetor[2]);
+
+                int i = 0;
+                while (linhaVetor.length >i) {
+
+                    i++;
+                }
+                String[] data = linhaVetor[5].split("/");
+                int dia = Integer.parseInt(data[2]);
+                int mes = Integer.parseInt(data[1]);
+                int ano = Integer.parseInt(data[0]);
+                LocalDate dataNascimeento = LocalDate.of(ano, mes, dia);
+
+                Medico m = new Medico(Integer.parseInt(linhaVetor[0]), linhaVetor[1], linhaVetor[2], linhaVetor[3], linhaVetor[4], dataNascimeento, linhaVetor[6]);
                 medicos.add(m);
                 linha = br.readLine();
             }
@@ -152,12 +165,12 @@ public class MedicoDAO {
 
         }
     }
-      
-      public static DefaultTableModel getTableModel() {
+
+    public static DefaultTableModel getTableModel() {
 
         // Matriz que receberá os planos de saúde
         // que serão utilizados na Tabela (JTable)
-        Object[][] dados = new Object[medicos.size()][3];
+        Object[][] dados = new Object[medicos.size()][4];
 
         // For Each, para extrair cada objeto plano de saúde do
         // arraylist planos e separar cada dado na matriz dados
@@ -166,11 +179,12 @@ public class MedicoDAO {
             dados[i][0] = m.getCodigo();
             dados[i][1] = m.getCrm();
             dados[i][2] = m.getNome();
+            dados[i][3] = m.getTelefone();
             i++;
         }
 
         // Definir um vetor com os nomes das colulas da tabela
-        String[] titulos = {"Código", "Crm", "Nome do Médico"};
+        String[] titulos = {"Código", "CRM", "Nome do Médico", "Telefone"};
 
         // Criar o modelo que será utilizado pela JTable 
         // para exibir os dados dos planos

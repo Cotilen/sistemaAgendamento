@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
+import br.senai.sp.jandira.dao.MedicoDAO;
 import java.awt.Button;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -14,6 +15,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private PlanoDeSaudePanel panelPlanosDeSaude;
     private EspecialidadePanel panelEspecialidade;
+    private MedicoPanel panelMedicos;
 
     private final int POSIÇAO_X = 0;
     private final int POSIÇAO_Y = 180;
@@ -26,8 +28,10 @@ public class HomeFrame extends javax.swing.JFrame {
         URL url = this.getClass().getResource("/br/senai/sp/jandira/imagens/barra.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
+        
         PlanoDeSaudeDAO.criarListaPlanoDeSaude();
         EspecialidadeDAO.GetListaEspecialidades();
+        MedicoDAO.GetListaMedicos();
 
         initPanels();
     }
@@ -247,6 +251,9 @@ public class HomeFrame extends javax.swing.JFrame {
     private void buttonMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMedicosActionPerformed
         defaultButtons();
         buttonMedicos.setBackground(new java.awt.Color(255, 133, 0));
+        panelsVisible();
+        panelMedicos.setVisible(true);
+        
     }//GEN-LAST:event_buttonMedicosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -289,6 +296,14 @@ public class HomeFrame extends javax.swing.JFrame {
         getContentPane().add(panelEspecialidade);
         panelEspecialidade.setVisible(false);
 
+        //Medicos
+        panelMedicos = new MedicoPanel();
+        
+        panelMedicos.setBounds(POSIÇAO_X, POSIÇAO_Y, LARGURA, ALTURA);
+        
+        getContentPane().add(panelMedicos);
+        
+        panelMedicos.setVisible(false);
     }
 
     private void defaultButtons() {
@@ -304,6 +319,7 @@ public class HomeFrame extends javax.swing.JFrame {
         panelHome.setVisible(false);
         panelPlanosDeSaude.setVisible(false);
         panelEspecialidade.setVisible(false);
+        panelMedicos.setVisible(false);
 
     }
 

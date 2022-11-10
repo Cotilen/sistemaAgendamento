@@ -1,2 +1,3 @@
-100;asdf;sadf
-101;sadf;sdaf
+101;Pediatria;null
+102;Cardiologia;Área da medicina que estuda e trata das doenças que acometem o coração
+103;Ortopedia;Área da medicina que estuda e trata da saúde que atigem os aprelhos locomotores, como os ossos, ligamentos, músculos e articulações

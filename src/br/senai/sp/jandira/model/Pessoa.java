@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Pessoa {
@@ -7,7 +8,7 @@ public class Pessoa {
     private String nome;
     private String email;
     private String telefone;
-    private LocalDateTime dataNascimento;
+    private LocalDate dataNascimento;
 
     public String getNome() {
         return nome;
@@ -33,12 +34,13 @@ public class Pessoa {
         this.telefone = telefone;
     }
 
-    public LocalDateTime getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(LocalDateTime dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
+    
 }

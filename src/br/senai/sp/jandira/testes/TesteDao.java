@@ -3,11 +3,19 @@ package br.senai.sp.jandira.testes;
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.dao.PlanoDeSaudeDAO;
 import br.senai.sp.jandira.model.Especialidade;
+import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.PlanoDeSaude;
 
 public class TesteDao {
 
     public static void main(String[] args) {
+        
+        
+        Medico medico = new Medico("Cleiton");
+        
+        System.out.println(medico.getNome());
+        
+        
 
 //        String[] linha0 = {"Cotia", "Itapevi", "Jandira"};
 //        String[] linha1 = {"Barueri", "Carapicuíba", "Pirapora"};
