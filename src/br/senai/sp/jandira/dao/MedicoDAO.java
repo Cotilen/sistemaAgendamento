@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.dao;
 
+import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.Medico;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,7 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -145,17 +145,19 @@ public class MedicoDAO {
                 String[] linhaVetor = linha.split(";");
 
                 int i = 0;
-                while (linhaVetor.length >i) {
-
+                ArrayList<Especialidade> especialidades = new ArrayList();
+                while (linhaVetor.length > 6 + i) {
+                    especialidades.add(e)
                     i++;
                 }
+
                 String[] data = linhaVetor[5].split("/");
                 int dia = Integer.parseInt(data[2]);
                 int mes = Integer.parseInt(data[1]);
                 int ano = Integer.parseInt(data[0]);
-                LocalDate dataNascimeento = LocalDate.of(ano, mes, dia);
+                LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
 
-                Medico m = new Medico(Integer.parseInt(linhaVetor[0]), linhaVetor[1], linhaVetor[2], linhaVetor[3], linhaVetor[4], dataNascimeento, linhaVetor[6]);
+                Medico m = new Medico(Integer.parseInt(linhaVetor[0]), linhaVetor[1], linhaVetor[2], linhaVetor[3], linhaVetor[4], dataNascimento, especialidades);
                 medicos.add(m);
                 linha = br.readLine();
             }
