@@ -12,54 +12,52 @@ public class Medico extends Pessoa {
     private ArrayList<Especialidade> especialidades;
 
     //Metodos construtores
-    public Medico(){
+    public Medico() {
         atualizarCodigo();
     }
-    
-    public Medico(String nome){
+
+    public Medico(String nome) {
         super.setNome(nome);
         atualizarCodigo();
     }
-    
-    public Medico(String crm, String nome){
-        super();setNome(nome);
+
+    public Medico(String crm, String nome) {
+        super();
+        setNome(nome);
         this.crm = crm;
         atualizarCodigo();
     }
-    
-    public Medico(int codigo, String crm, String nome){
+
+    public Medico(int codigo, String crm, String nome) {
         this.codigo = codigo;
         this.crm = crm;
         super.setNome(nome);
         this.contador = this.codigo;
     }
-    
-     public Medico(int codigo, String crm, String nome,String telefone){
+
+    public Medico(int codigo, String crm, String nome, String telefone) {
         this.codigo = codigo;
         this.crm = crm;
         super.setNome(nome);
         super.setTelefone(telefone);
         this.contador = this.codigo;
     }
-     
-     public Medico(int codigo, String crm, String nome,String telefone,String email,LocalDate dataNascimento, ArrayList especialidades){
+
+    public Medico(int codigo, String crm, String nome, String telefone, String email, LocalDate dataNascimento, ArrayList especialidades) {
         this.codigo = codigo;
         this.crm = crm;
         setNome(nome);
         setTelefone(telefone);
         setEmail(email);
-         setDataNascimento(dataNascimento);
+        setDataNascimento(dataNascimento);
         this.especialidades = especialidades;
         this.contador = this.codigo;
     }
-    
-    public String getMedicoSeparadoporPontoEVirgula(){
-        return this.codigo + ";" + this.crm + ";" +  getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getEmail() + ";" + getDataNascimento() + ";" + this.especialidades ;
+
+    public String getMedicoSeparadoporPontoEVirgula() {
+        return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimento() + ";" + this.especialidades;
     }
-    
-    
-    
- 
+
     //Metodos de Getters e Setters
     public String getCrm() {
         return crm;
@@ -92,15 +90,12 @@ public class Medico extends Pessoa {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
-    
 
     //Metodos de acesso
-    
-     private void atualizarCodigo() {
+    private void atualizarCodigo() {
         contador++;
         this.codigo = contador;
 
     }
 
-    
 }

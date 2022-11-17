@@ -1,12 +1,17 @@
 
 package br.senai.sp.jandira.ui;
 
+import br.senai.sp.jandira.dao.EspecialidadeDAO;
 import br.senai.sp.jandira.dao.MedicoDAO;
+import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.TipoOperacao;
 import java.awt.TextField;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 public class MedicoDialog extends javax.swing.JDialog {
@@ -24,6 +29,13 @@ public class MedicoDialog extends javax.swing.JDialog {
         this.tipoOperacao = tipoOperacao;
         this.medico = medico;
 
+        
+        
+        
+        JList<ArrayList> jl = new JList<ArrayList>();
+        listEspecialidade.setToolTipText(EspecialidadeDAO.listarTodos().toString());
+        
+        
         // Preencher os campos caso o tipo de operação for alterar
         if (tipoOperacao == TipoOperacao.EDITAR) {
             preencherFormulario();
@@ -37,6 +49,9 @@ public class MedicoDialog extends javax.swing.JDialog {
         textCodigo.setText(medico.getCodigo().toString());
         textCrm.setText(medico.getCrm());
         textNomeMedico.setText(medico.getNome());
+        textTelefone.setText(medico.getTelefone());
+        textEmail.setText(medico.getEmail());
+        textDataNascimento.setText(medico.getDataNascimentoComBarra());
     }
 
     
@@ -51,7 +66,6 @@ public class MedicoDialog extends javax.swing.JDialog {
         textCrm = new javax.swing.JTextField();
         textNomeMedico = new javax.swing.JTextField();
         textCodigo = new javax.swing.JTextField();
-        textDataNascimento = new javax.swing.JTextField();
         textTelefone = new javax.swing.JTextField();
         textEmail = new javax.swing.JTextField();
         scrollListaEspecialidadeMedico = new javax.swing.JScrollPane();
@@ -70,6 +84,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        textDataNascimento = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -100,14 +115,6 @@ public class MedicoDialog extends javax.swing.JDialog {
         textCodigo.setEditable(false);
         jPanel1.add(textCodigo);
         textCodigo.setBounds(40, 55, 100, 22);
-
-        textDataNascimento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDataNascimentoActionPerformed(evt);
-            }
-        });
-        jPanel1.add(textDataNascimento);
-        textDataNascimento.setBounds(570, 120, 150, 22);
         jPanel1.add(textTelefone);
         textTelefone.setBounds(40, 120, 100, 22);
         jPanel1.add(textEmail);
@@ -123,22 +130,17 @@ public class MedicoDialog extends javax.swing.JDialog {
         jPanel1.add(scrollListaEspecialidadeMedico);
         scrollListaEspecialidadeMedico.setBounds(330, 200, 170, 190);
 
-        listEspecialidade.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         scrollListaEspecialidade.setViewportView(listEspecialidade);
 
         jPanel1.add(scrollListaEspecialidade);
         scrollListaEspecialidade.setBounds(40, 200, 170, 190);
 
-        buttonRemoverEspecialidade.setBackground(new java.awt.Color(255, 204, 0));
+        buttonRemoverEspecialidade.setBackground(new java.awt.Color(255, 0, 0));
         buttonRemoverEspecialidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
         jPanel1.add(buttonRemoverEspecialidade);
         buttonRemoverEspecialidade.setBounds(235, 310, 70, 50);
 
-        buttonAdicionarEspecialidade.setBackground(new java.awt.Color(255, 204, 0));
+        buttonAdicionarEspecialidade.setBackground(new java.awt.Color(102, 255, 0));
         buttonAdicionarEspecialidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
         jPanel1.add(buttonAdicionarEspecialidade);
         buttonAdicionarEspecialidade.setBounds(235, 225, 70, 50);
@@ -215,15 +217,20 @@ public class MedicoDialog extends javax.swing.JDialog {
         jPanel1.add(jLabel8);
         jLabel8.setBounds(40, 30, 60, 15);
 
+        textDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        textDataNascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textDataNascimentoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(textDataNascimento);
+        textDataNascimento.setBounds(570, 120, 150, 22);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 100, 760, 470);
 
         setBounds(0, 0, 776, 604);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDataNascimentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textDataNascimentoActionPerformed
 
     private void buttonCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelar1ActionPerformed
 
@@ -239,12 +246,17 @@ public class MedicoDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_buttonSalvar1ActionPerformed
 
+    private void textDataNascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDataNascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textDataNascimentoActionPerformed
+
     private void editar() {
         
         medico.setCrm(textCrm.getText());
         medico.setNome(textNomeMedico.getText());
         medico.setTelefone(textTelefone.getText());
         medico.setEmail(textEmail.getText());
+        medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText()));
         
        
         
@@ -268,7 +280,8 @@ public class MedicoDialog extends javax.swing.JDialog {
         medico.setNome(textNomeMedico.getText());
         medico.setTelefone(textTelefone.getText());
         medico.setEmail(textEmail.getText());
-//        medico.setDataNascimento(textDataNascimento.getText());
+        medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        medico.setEspecialidades(medico.getEspecialidades());
 
         if (validarCadastro()) {
 
@@ -334,7 +347,7 @@ public class MedicoDialog extends javax.swing.JDialog {
     private javax.swing.JScrollPane scrollListaEspecialidadeMedico;
     private javax.swing.JTextField textCodigo;
     private javax.swing.JTextField textCrm;
-    private javax.swing.JTextField textDataNascimento;
+    private javax.swing.JFormattedTextField textDataNascimento;
     private javax.swing.JTextField textEmail;
     private javax.swing.JTextField textNomeMedico;
     private javax.swing.JTextField textTelefone;

@@ -2,6 +2,7 @@ package br.senai.sp.jandira.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
 
@@ -40,7 +41,14 @@ public class Pessoa {
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
+        
     }
 
+    public String getDataNascimentoComBarra(){
+        String[] separado = dataNascimento.toString().split("-");
+        String dataCerta = separado[2] + "/" + separado[1] + "/" + separado[0];
+        return dataCerta;
+        
+    }
     
 }

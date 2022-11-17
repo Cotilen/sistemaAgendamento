@@ -10,7 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -147,22 +149,17 @@ public class MedicoDAO {
                 int i = 0;
                 ArrayList<Especialidade> especialidades = new ArrayList();
                 while (linhaVetor.length > 6 + i) {
-                    especialidades.add(e)
+                    especialidades.add(EspecialidadeDAO.getEspecialidade(Integer.getInteger(linhaVetor[6 + i])));
                     i++;
                 }
-
-                String[] data = linhaVetor[5].split("/");
-                int dia = Integer.parseInt(data[2]);
-                int mes = Integer.parseInt(data[1]);
-                int ano = Integer.parseInt(data[0]);
-                LocalDate dataNascimento = LocalDate.of(ano, mes, dia);
-
+                LocalDate dataNascimento = LocalDate.parse(linhaVetor[5], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                
                 Medico m = new Medico(Integer.parseInt(linhaVetor[0]), linhaVetor[1], linhaVetor[2], linhaVetor[3], linhaVetor[4], dataNascimento, especialidades);
                 medicos.add(m);
                 linha = br.readLine();
             }
             br.close();
-        } catch (Exception e) {
+        } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "O arquivo medico não existe");
 
         }
