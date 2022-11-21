@@ -1,4 +1,3 @@
-
 package br.senai.sp.jandira.ui;
 
 import br.senai.sp.jandira.dao.EspecialidadeDAO;
@@ -6,11 +5,11 @@ import br.senai.sp.jandira.dao.MedicoDAO;
 import br.senai.sp.jandira.model.Especialidade;
 import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.TipoOperacao;
-import java.awt.TextField;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -18,6 +17,9 @@ public class MedicoDialog extends javax.swing.JDialog {
 
     private TipoOperacao tipoOperacao;
     private Medico medico;
+    private DefaultListModel<String> listaTodasEspecialidadesModel = new DefaultListModel<>();
+    private DefaultListModel<String> especialidadesMedicoModel = new DefaultListModel<>();
+    private ArrayList<String> especialidadesMedico = new ArrayList<>();
 
     public MedicoDialog(
             java.awt.Frame parent,
@@ -28,20 +30,14 @@ public class MedicoDialog extends javax.swing.JDialog {
         initComponents();
         this.tipoOperacao = tipoOperacao;
         this.medico = medico;
+        carregarEspecalidades();
 
-        
-        
-        
-        JList<ArrayList> jl = new JList<ArrayList>();
-        listEspecialidade.setToolTipText(EspecialidadeDAO.listarTodos().toString());
-        
-        
         // Preencher os campos caso o tipo de operação for alterar
         if (tipoOperacao == TipoOperacao.EDITAR) {
             preencherFormulario();
         }
-
     }
+
     private void preencherFormulario() {
 
         labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/senai/sp/jandira/imagens/edit.png")));
@@ -54,8 +50,6 @@ public class MedicoDialog extends javax.swing.JDialog {
         textDataNascimento.setText(medico.getDataNascimentoComBarra());
     }
 
-    
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -120,11 +114,6 @@ public class MedicoDialog extends javax.swing.JDialog {
         jPanel1.add(textEmail);
         textEmail.setBounds(160, 120, 390, 22);
 
-        listEspecialidadeMedico.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         scrollListaEspecialidadeMedico.setViewportView(listEspecialidadeMedico);
 
         jPanel1.add(scrollListaEspecialidadeMedico);
@@ -137,11 +126,21 @@ public class MedicoDialog extends javax.swing.JDialog {
 
         buttonRemoverEspecialidade.setBackground(new java.awt.Color(255, 0, 0));
         buttonRemoverEspecialidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+        buttonRemoverEspecialidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoverEspecialidadeActionPerformed(evt);
+            }
+        });
         jPanel1.add(buttonRemoverEspecialidade);
         buttonRemoverEspecialidade.setBounds(235, 310, 70, 50);
 
         buttonAdicionarEspecialidade.setBackground(new java.awt.Color(102, 255, 0));
         buttonAdicionarEspecialidade.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black, java.awt.Color.black));
+        buttonAdicionarEspecialidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAdicionarEspecialidadeActionPerformed(evt);
+            }
+        });
         jPanel1.add(buttonAdicionarEspecialidade);
         buttonAdicionarEspecialidade.setBounds(235, 225, 70, 50);
 
@@ -250,27 +249,45 @@ public class MedicoDialog extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_textDataNascimentoActionPerformed
 
-    private void editar() {
+    private void buttonAdicionarEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarEspecialidadeActionPerformed
+
+        List<String> especialidade = listEspecialidade.getSelectedValuesList(); // Usar esse aqui
+
+        especialidadesMedicoModel.clear();
+        for (String percorrer : especialidade) {
+            especialidadesMedico.add(percorrer);
+        }
+        especialidadesMedicoModel.clear();
+        especialidadesMedicoModel.addAll(especialidadesMedico);
+        listEspecialidadeMedico.setModel(especialidadesMedicoModel);
         
+       
+
+    }//GEN-LAST:event_buttonAdicionarEspecialidadeActionPerformed
+
+    private void buttonRemoverEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverEspecialidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonRemoverEspecialidadeActionPerformed
+
+    private void editar() {
+
         medico.setCrm(textCrm.getText());
         medico.setNome(textNomeMedico.getText());
         medico.setTelefone(textTelefone.getText());
         medico.setEmail(textEmail.getText());
-        medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText()));
-        
-       
-        
-        if(validarCadastro()){
-             MedicoDAO.editar(medico);
-              JOptionPane.showMessageDialog(
-                null, 
-                "Médico atualizado com sucesso",
-                "Medico",
-                JOptionPane.INFORMATION_MESSAGE);
-        
-        dispose();
+        medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        if (validarCadastro()) {
+            MedicoDAO.editar(medico);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Médico atualizado com sucesso",
+                    "Medico",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+            dispose();
         }
-       
+
     }
 
     private void gravar() {
@@ -280,8 +297,8 @@ public class MedicoDialog extends javax.swing.JDialog {
         medico.setNome(textNomeMedico.getText());
         medico.setTelefone(textTelefone.getText());
         medico.setEmail(textEmail.getText());
-        medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        medico.setEspecialidades(medico.getEspecialidades());
+        medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+//        medico.setEspecialidades();
 
         if (validarCadastro()) {
 
@@ -321,6 +338,16 @@ public class MedicoDialog extends javax.swing.JDialog {
             return false;
         }
         return true;
+
+    }
+
+    private void carregarEspecalidades() {
+
+        for (Especialidade percorrer : EspecialidadeDAO.listarTodos()) {
+            listaTodasEspecialidadesModel.addElement(percorrer.getNome());
+        }
+
+        listEspecialidade.setModel(listaTodasEspecialidadesModel);
 
     }
 

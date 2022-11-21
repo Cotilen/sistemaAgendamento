@@ -1,14 +1,22 @@
 package br.senai.sp.jandira.testes;
 
+import br.senai.sp.jandira.dao.EspecialidadeDAO;
+import br.senai.sp.jandira.dao.MedicoDAO;
 import java.util.ArrayList;
 
 import br.senai.sp.jandira.model.Especialidade;
+import br.senai.sp.jandira.model.Medico;
 import br.senai.sp.jandira.model.PlanoDeSaude;
 
 public class TesteArrayList {
 
 	public static void main(String[] args) { // arguments
 		
+            
+            
+            
+            
+            
 		PlanoDeSaude plano1 = new PlanoDeSaude("Amil", "Basic");
 		PlanoDeSaude plano2 = new PlanoDeSaude("Allianz", "Bronze");
 		PlanoDeSaude plano3 = new PlanoDeSaude("Unimed", "Prata");
@@ -74,20 +82,10 @@ public class TesteArrayList {
 			System.out.printf("%s --> %s\n", e.getNome(), e.getDescricao());
 		}
 		
-		System.out.println(e1.getQuantidade());
-		System.out.println(e2.getQuantidade());
-		System.out.println(e3.getQuantidade());
+		System.out.println(EspecialidadeDAO.ListarTodasEspecialidades());
 		
-		
-		System.out.println(e1.getQuantidade());
-		System.out.println(e2.getQuantidade());
-		System.out.println(e3.getQuantidade());
-		
-		
-		System.out.println(e1.getQuantidade());
-		System.out.println(e2.getQuantidade());
-		System.out.println(e3.getQuantidade());
 		
 	}
-
+        
+       
 }

@@ -36,6 +36,8 @@ public class EspecialidadeDAO {
     public static ArrayList<Especialidade> listarTodos() {
         return especialidades;
     }
+    
+    
 
     public static void gravar(Especialidade especialidade) {
 
