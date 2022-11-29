@@ -3,6 +3,7 @@ package br.senai.sp.jandira.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 
 public class Medico extends Pessoa {
 
@@ -54,8 +55,26 @@ public class Medico extends Pessoa {
         this.contador = this.codigo;
     }
 
-    public String getMedicoSeparadoporPontoEVirgula() {
-        return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimento() + ";" + this.especialidades;
+    public String getMedicoSeparadoComPontoVirgula() {
+        String codigoEspecialidades = "";
+        for (Especialidade e : especialidades) {
+            codigoEspecialidades += e.getCodigo() + ";";
+        }
+
+        return this.codigo + ";" + this.crm + ";" + getNome() + ";" + getTelefone() + ";" + getEmail() + ";" + getDataNascimentoComBarra() + ";" + codigoEspecialidades;
+
+    }
+
+    public ArrayList<String> getEspecialidadesMedicoLista() {
+        ArrayList<String> dados = new ArrayList<>();
+        for (Especialidade e : especialidades) {
+            dados.add(e.getNome());
+        }
+        DefaultListModel<String> ListaModel = new DefaultListModel<>();
+
+        ListaModel.addAll(dados);
+
+        return dados;
     }
 
     //Metodos de Getters e Setters

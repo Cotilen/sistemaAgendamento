@@ -46,7 +46,7 @@ public class MedicoDAO {
                     PATH,
                     StandardOpenOption.APPEND,
                     StandardOpenOption.WRITE);
-            bw.write(medico.getMedicoSeparadoporPontoEVirgula());
+            bw.write(medico.getMedicoSeparadoComPontoVirgula());
             bw.newLine();
             bw.close();
 
@@ -114,7 +114,7 @@ public class MedicoDAO {
 
             //Iterar na liosta para adicionar os planos no arquivo temporario
             for (Medico m : medicos) {
-                bwTemp.write(m.getMedicoSeparadoporPontoEVirgula());
+                bwTemp.write(m.getMedicoSeparadoComPontoVirgula());
                 bwTemp.newLine();
 
             }
@@ -148,11 +148,11 @@ public class MedicoDAO {
 
                 int i = 0;
                 ArrayList<Especialidade> especialidades = new ArrayList();
-                while (linhaVetor.length > 6 + i) {
-                    especialidades.add(EspecialidadeDAO.getEspecialidade(Integer.getInteger(linhaVetor[6 + i])));
+                while (linhaVetor.length > i + 6) {
+                    especialidades.add(EspecialidadeDAO.getEspecialidade(Integer.valueOf(linhaVetor[6 + i])));
                     i++;
                 }
-                LocalDate dataNascimento = LocalDate.parse(linhaVetor[5], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                LocalDate dataNascimento = LocalDate.parse(linhaVetor[5], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                 
                 Medico m = new Medico(Integer.parseInt(linhaVetor[0]), linhaVetor[1], linhaVetor[2], linhaVetor[3], linhaVetor[4], dataNascimento, especialidades);
                 medicos.add(m);

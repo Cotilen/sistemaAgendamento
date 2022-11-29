@@ -18,8 +18,11 @@ public class MedicoDialog extends javax.swing.JDialog {
     private TipoOperacao tipoOperacao;
     private Medico medico;
     private DefaultListModel<String> listaTodasEspecialidadesModel = new DefaultListModel<>();
+    private ArrayList<String> especialidades = new ArrayList<>();
+    private ArrayList<Especialidade> especialidadesSelecionadas = EspecialidadeDAO.listarTodos();
     private DefaultListModel<String> especialidadesMedicoModel = new DefaultListModel<>();
     private ArrayList<String> especialidadesMedico = new ArrayList<>();
+    private ArrayList<Especialidade> especialidadesSelecionadasMedico = new ArrayList<>();
 
     public MedicoDialog(
             java.awt.Frame parent,
@@ -35,6 +38,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         // Preencher os campos caso o tipo de operação for alterar
         if (tipoOperacao == TipoOperacao.EDITAR) {
             preencherFormulario();
+            carregarEspecalidades();
         }
     }
 
@@ -251,22 +255,55 @@ public class MedicoDialog extends javax.swing.JDialog {
 
     private void buttonAdicionarEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAdicionarEspecialidadeActionPerformed
 
-        List<String> especialidade = listEspecialidade.getSelectedValuesList(); // Usar esse aqui
+        List<String> especialidadeMedico = listEspecialidade.getSelectedValuesList();
 
-        especialidadesMedicoModel.clear();
-        for (String percorrer : especialidade) {
-            especialidadesMedico.add(percorrer);
+        for (String e : especialidadeMedico) {
+            especialidadesMedico.add(e);
+        }
+
+        for (Especialidade e : especialidadesSelecionadas) {
+            if (especialidadeMedico.contains(e.getNome())) {
+                especialidadesSelecionadasMedico.add(e);
+            }
         }
         especialidadesMedicoModel.clear();
         especialidadesMedicoModel.addAll(especialidadesMedico);
         listEspecialidadeMedico.setModel(especialidadesMedicoModel);
-        
-       
+
+        int[] excluir = listEspecialidadeMedico.getSelectedIndices();
+        for (int e : excluir) {
+            listEspecialidade.remove(e);
+            especialidades.remove(e);
+
+        }
+
 
     }//GEN-LAST:event_buttonAdicionarEspecialidadeActionPerformed
 
     private void buttonRemoverEspecialidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoverEspecialidadeActionPerformed
-        // TODO add your handling code here:
+        List<String> removerEspecialidadeMedico = listEspecialidadeMedico.getSelectedValuesList();
+
+    
+        
+        
+        for (Especialidade e : especialidadesSelecionadas) {
+            if (removerEspecialidadeMedico.contains(e.getNome())) {
+                especialidadesSelecionadasMedico.remove(e);
+            }
+        }
+        
+
+        listaTodasEspecialidadesModel.clear();
+        listaTodasEspecialidadesModel.addAll(especialidades);
+        listEspecialidade.setModel(listaTodasEspecialidadesModel);
+
+        int[] excluir = listEspecialidadeMedico.getSelectedIndices();
+        for (int e : excluir) {
+            especialidadesMedicoModel.remove(e);
+            especialidadesMedico.remove(e);
+        }
+
+
     }//GEN-LAST:event_buttonRemoverEspecialidadeActionPerformed
 
     private void editar() {
@@ -276,7 +313,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         medico.setTelefone(textTelefone.getText());
         medico.setEmail(textEmail.getText());
         medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
+        medico.setEspecialidades(especialidadesSelecionadasMedico);
         if (validarCadastro()) {
             MedicoDAO.editar(medico);
             JOptionPane.showMessageDialog(
@@ -298,7 +335,7 @@ public class MedicoDialog extends javax.swing.JDialog {
         medico.setTelefone(textTelefone.getText());
         medico.setEmail(textEmail.getText());
         medico.setDataNascimento(LocalDate.parse(textDataNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-//        medico.setEspecialidades();
+        medico.setEspecialidades(especialidadesSelecionadasMedico);
 
         if (validarCadastro()) {
 
@@ -343,13 +380,32 @@ public class MedicoDialog extends javax.swing.JDialog {
 
     private void carregarEspecalidades() {
 
-        for (Especialidade percorrer : EspecialidadeDAO.listarTodos()) {
-            listaTodasEspecialidadesModel.addElement(percorrer.getNome());
+        especialidades = EspecialidadeDAO.getListaDeNomes();
+        listaTodasEspecialidadesModel.addAll(especialidades);
+        listEspecialidade.setModel(listaTodasEspecialidadesModel);
+        if (tipoOperacao == TipoOperacao.ADICIONAR) {
+
+        } else {
+            especialidadesSelecionadasMedico = medico.getEspecialidades();
+            especialidadesMedico = medico.getEspecialidadesMedicoLista();
+            especialidadesMedicoModel.clear();
+            especialidadesMedicoModel.addAll(especialidadesMedico);
+            listEspecialidadeMedico.setModel(especialidadesMedicoModel);
+
+            int i = 0;
+            for (String e : especialidadesMedico) {
+                if (especialidades.contains(e)) {
+                    especialidades.remove(e);
+                }
+            }
+            especialidadesMedicoModel.clear();
+            especialidadesMedicoModel.addAll(especialidades);
+
         }
 
-        listEspecialidade.setModel(listaTodasEspecialidadesModel);
+   
 
-    }
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

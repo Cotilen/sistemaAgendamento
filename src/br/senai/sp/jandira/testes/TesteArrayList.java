@@ -82,7 +82,8 @@ public class TesteArrayList {
 			System.out.printf("%s --> %s\n", e.getNome(), e.getDescricao());
 		}
 		
-		System.out.println(EspecialidadeDAO.ListarTodasEspecialidades());
+		
+
 		
 		
 	}
